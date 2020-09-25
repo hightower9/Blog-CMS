@@ -35,8 +35,22 @@
                     {!! Form::label('password', 'Password:') !!}
                     {!! Form::password('password', ['class' => 'form-control']) !!}
                 </div>
-                <div class="form-group">
+                <div class="form-group col-sm-6">
                     {!! Form::submit('Edit User', ['class' => 'btn btn-primary']) !!}
+                </div>
+            {!! Form::close() !!}
+
+            <script>
+                function ConfirmDelete()
+                {
+                    confirm("Are you sure you want to delete?") ? true : false;
+                }
+            </script>
+
+            {!! Form::open(['method' => 'DELETE', 'action' => ['AdminUsersController@destroy', $user->id], 'onsubmit' => 'return ConfirmDelete()', 'class' => 'col-sm-6']) !!}
+            {{-- {{Form::hidden('_method','DELETE')}} --}}
+                <div class="form-group">
+                    {!! Form::submit('Delete User', ['class' => 'btn btn-danger pull-right']) !!}
                 </div>
             {!! Form::close() !!}
 
