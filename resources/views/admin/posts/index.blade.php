@@ -14,22 +14,25 @@
             <th>Category</th>
             <th>Created</th>
             <th>Updated</th>
+            <th>Edit</th>
           </tr>
         </thead>
         <tbody>
             @if ($posts)
                 @foreach ($posts as $post)
-                    <tr onclick="document.location = '{{ route('posts.show', $post->id) }}';">
+                {{-- onclick="document.location = '{{ route('posts.show', $post->id) }}';" --}}
+                    <tr>
                         <td>{{ $post->id }}</td>
                         <td>
                             <img height="70" src="{{ $post->photo ? $post->photo->file : asset('images/default-profile-picture.jpg') }}" alt="">
                         </td>
-                        <td><a href="{{ route('posts.edit', $post->id) }}">{{ $post->title }}</a></td>
-                        <td>{{ $post->body }}</td>
+                        <td>{{ $post->title }}</td>
+                        <td>{{ \Illuminate\Support\Str::limit($post->body, 15) }}</td>
                         <td>{{ $post->user->name }}</td>
                         <td>{{ $post->category ? $post->category->name : 'Uncategorized' }}</td>
                         <td>{{ $post->created_at->diffForHumans() }}</td>
                         <td>{{ $post->updated_at->diffForHumans() }}</td>
+                        <td><a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning">Edit</a></td>
                     </tr>
                 @endforeach
             @endif
